@@ -18,11 +18,12 @@ mongoose
     console.log("err------>", err);
   });
 const app = express();
-const corsOptions = {
-  origin: "https://mern-blog-app-py3d.vercel.app", // Replace with your frontend domain
-  credentials: true, // Allow credentials (cookies)
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: "https://mern-blog-app-py3d.vercel.app", // Replace with your frontend domain
+//   credentials: true, // Allow credentials (cookies)
+// };
+// app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.listen(3000, () => {
