@@ -24,12 +24,10 @@ const userSchema = new mongoose.Schema(
     City: {
       type: String,
       required: true,
-      unique: true,
     },
     PostalCode: {
       type: String,
       required: true,
-      unique: true,
     },
     PhoneNumber: {
       type: Number,

@@ -4,7 +4,76 @@ import bcryptjs from "bcryptjs";
 export const test = (req, res) => {
   res.json({ message: "API is working..." });
 };
+
+export const register = async (req, res, next) => {
+  const {
+    email,
+    ParentFirstName,
+    ParentlastName,
+    StreetAddress,
+    City,
+    PostalCode,
+    PhoneNumber,
+    StudentFirstName,
+    StudentLastName,
+    DOB,
+    YearOfEntry,
+    WouldYouLikeToEnroll,
+  } = req.body;
+
+  if (
+    !email ||
+    email == "" ||
+    !ParentFirstName ||
+    ParentFirstName === "" ||
+    ParentlastName === "" ||
+    !ParentlastName ||
+    !StreetAddress ||
+    StreetAddress == "" ||
+    !City ||
+    City == "" ||
+    !PostalCode ||
+    PostalCode == "" ||
+    PhoneNumber == "" ||
+    !PhoneNumber ||
+    StudentFirstName == "" ||
+    !StudentFirstName ||
+    StudentLastName == "" ||
+    !StudentLastName ||
+    !DOB ||
+    DOB == "" ||
+    !YearOfEntry ||
+    YearOfEntry == "" ||
+    !WouldYouLikeToEnroll ||
+    WouldYouLikeToEnroll == ""
+  ) {
+    next(errorHandler(400, "All fields are required"));
+  }
+
+  const newUser = new User({
+    email,
+    ParentFirstName,
+    ParentlastName,
+    StreetAddress,
+    City,
+    PostalCode,
+    PhoneNumber,
+    StudentFirstName,
+    StudentLastName,
+    DOB,
+    YearOfEntry,
+    WouldYouLikeToEnroll,
+  });
+
+  try {
+    await newUser.save();
+    res.json("Registration is Successful");
+  } catch (error) {
+    next(error);
+  }
+};
 // update user
+
 export const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.userId) {
     return next(errorHandler(403, "You are not allowed to update this user"));
